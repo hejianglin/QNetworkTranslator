@@ -3,17 +3,17 @@
 
 #include <QtCore/QtGlobal>
 
-#if defined(TRANSLATOR_LIBRARY)
+#if defined(QNETWORKTRANSLATOR_LIBRARY)
 #  define TRANSLATOR_EXPORT Q_DECL_EXPORT
 #else
 #  define TRANSLATOR_EXPORT Q_DECL_IMPORT
 #endif
 
-#define TRANSLATOR_NAMESPACE_BEGIN
-#define TRANSLATOR_NAMESPACE_END
-#define USE_TRANSLATOR_NAMESPACE
+#define QNETWORKTRANSLATOR_NAMESPACE_BEGIN
+#define QNETWORKTRANSLATOR_NAMESPACE_END
+#define USE_QNETWORKTRANSLATOR_NAMESPACE
 
-TRANSLATOR_NAMESPACE_BEGIN
+QNETWORKTRANSLATOR_NAMESPACE_BEGIN
 enum LanguageType{
     LanguageType_eNone = -1,
     LanguageType_eAuto,
@@ -29,14 +29,6 @@ enum TranslatorClient{
     TranslatorClient_eBaidu,
     TranslatorClient_eSougou
 };
-TRANSLATOR_NAMESPACE_END
-
-//debug
-#if defined (PRINT_DEBUG_INFO)
-#include <QDebug>
-#define DEBUG(x) do{qDebug()<<"file: "<<__FILE__<<" [ line:"<< __LINE__<<"]"<<x;}while(0);
-#else
-#define DEBUG(x) do{}while(0);
-#endif
+QNETWORKTRANSLATOR_NAMESPACE_END
 
 #endif // TRANSLATORGLOBAL_H

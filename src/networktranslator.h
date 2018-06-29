@@ -5,20 +5,20 @@
 #include <QtCore/QObject>
 
 //QNetworkTranslator
-#include "translator_global.h"
-#include "translatorrequest.h"
-#include "translatorreply.h"
+#include "networktranslator_global.h"
+#include "networktranslatorrequest.h"
+#include "networktranslatorreply.h"
 
 class QUrl;
-class TranslatorPrivate;
-class Translator : public QObject
+class QNetworkTranslatorPrivate;
+class QNetworkTranslator : public QObject
 {
     Q_OBJECT
-    Q_DISABLE_COPY(Translator)
+    Q_DISABLE_COPY(QNetworkTranslator)
 
 public:
-    Translator(QObject *parent = 0);
-    ~Translator();
+    QNetworkTranslator(QObject *parent = 0);
+    ~QNetworkTranslator();
 
     void setTranslatorClient(TranslatorClient);
     TranslatorClient translatorClient() const;
@@ -38,17 +38,19 @@ public:
     void setDefaultTargetLanguage(LanguageType);
     LanguageType defaultTargetLanguage() const;
 
+    QString errorString() const;
+
     bool translator(const QString &source);
     bool translator(const QStringList &source);
-    bool translator(const TranslatorRequest &request);
+    bool translator(QNetworkTranslatorRequest &request);
 
 signals:
-    void finished(TranslatorReply);
+    void finished(QNetworkTranslatorReply);
 
 private:
-    TranslatorPrivate *d_ptr;
-    Q_DECLARE_PRIVATE(Translator)
+    Q_DECLARE_PRIVATE(QNetworkTranslator)
     Q_PRIVATE_SLOT(d_func(),void _q_finished(QNetworkReply *))
+    QNetworkTranslatorPrivate *d_ptr;
 };
 
 #endif // TRANSLATOR_H

@@ -3,14 +3,14 @@
 #include <QDebug>
 
 #include "protocolgenertor_baidu.h"
-#include "translator.h"
-#include "translator_global.h"
+#include "networktranslator.h"
+#include "networktranslator_global.h"
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    Translator *client = new Translator;
+    QNetworkTranslator *client = new QNetworkTranslator;
     client->setTranslatorClient(TranslatorClient_eBaidu);
-    client->setAppID("20180616000177249");
+    client->setAppID("201806160001779");
     client->setAppKey("kCRSPpGPuSQoPXwaT9hD");
     client->setDefaultSourceLanguage(LanguageType_eEn);
     client->setDefaultTargetLanguage(LanguageType_eZh);

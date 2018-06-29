@@ -1,7 +1,7 @@
 //QNetwrokTranslaotr
 #include "protocolreader.h"
 
-ProtocolReader::ProtocolReader(LanguageMap *map)
+ProtocolReader::ProtocolReader()
 {
 
 }
@@ -9,6 +9,16 @@ ProtocolReader::ProtocolReader(LanguageMap *map)
 ProtocolReader::~ProtocolReader()
 {
 
+}
+
+void ProtocolReader::setLanguageMap(LanguageMap *)
+{
+
+}
+
+LanguageMap *ProtocolReader::languageMap() const
+{
+    return Q_NULLPTR;
 }
 
 void ProtocolReader::read(const QByteArray &)
@@ -39,4 +49,14 @@ QStringList ProtocolReader::source() const
 QStringList ProtocolReader::target() const
 {
     return QStringList();
+}
+
+int ProtocolReader::error() const
+{
+    return 0;
+}
+
+QString ProtocolReader::errorString() const
+{
+    return QString();
 }

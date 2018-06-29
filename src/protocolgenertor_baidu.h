@@ -13,7 +13,7 @@ class ProtocolGenertor_Baidu : public ProtocolGenertor
 {
     Q_DISABLE_COPY(ProtocolGenertor_Baidu)
 public:
-    ProtocolGenertor_Baidu(LanguageMap *map = Q_NULLPTR);
+    ProtocolGenertor_Baidu();
     virtual ~ProtocolGenertor_Baidu();
 
     void setAppID(const QString &) override;
@@ -28,13 +28,19 @@ public:
     void setTargetLanguage(LanguageType) override;
     LanguageType targetLanguage() const override;
 
-    void setSource(const QString &) override;
-    QString source() const override;
+    void setSource(const QStringList &) override;
+    QStringList source() const override;
 
+    void setLanguageMap(LanguageMap *) override;
+    LanguageMap *languageMap() const override;
+
+    bool isValid() override;
+    QString errorString() const override;
     QByteArray generate() override;
 
 private:
     QSharedDataPointer<ProtocolGenertorPrivate_Baidu> d;
     friend class ProtocolGenertorPrivate_Baidu;
 };
+
 #endif// PROTOCOLGENERTOR_BAIDU_H

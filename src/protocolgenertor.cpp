@@ -1,14 +1,20 @@
 //QNetworkTranslator
 #include "protocolgenertor.h"
 
-ProtocolGenertor::ProtocolGenertor(LanguageMap *)
-{}
+ProtocolGenertor::ProtocolGenertor()
+{
+
+}
 
 ProtocolGenertor::~ProtocolGenertor()
-{}
+{
+
+}
 
 void ProtocolGenertor::setAppID(const QString &)
-{}
+{
+
+}
 
 QString ProtocolGenertor::appID() const
 {
@@ -16,7 +22,9 @@ QString ProtocolGenertor::appID() const
 }
 
 void ProtocolGenertor::setAppKey(const QString &)
-{}
+{
+
+}
 
 QString ProtocolGenertor::appKey() const
 {
@@ -24,7 +32,9 @@ QString ProtocolGenertor::appKey() const
 }
 
 void ProtocolGenertor::setSourceLanguage(LanguageType)
-{}
+{
+
+}
 
 LanguageType ProtocolGenertor::sourceLanguage() const
 {
@@ -32,17 +42,31 @@ LanguageType ProtocolGenertor::sourceLanguage() const
 }
 
 void ProtocolGenertor::setTargetLanguage(LanguageType)
-{}
+{
+
+}
 
 LanguageType ProtocolGenertor::targetLanguage() const
 {
     return LanguageType_eNone;
 }
 
-void ProtocolGenertor::setSource(const QString &)
-{}
+void ProtocolGenertor::setSource(const QStringList &)
+{
 
-QString ProtocolGenertor::source() const
+}
+
+QStringList ProtocolGenertor::source() const
+{
+    return QStringList();
+}
+
+bool ProtocolGenertor::isValid()
+{
+    return false;
+}
+
+QString ProtocolGenertor::errorString() const
 {
     return QString();
 }
@@ -50,4 +74,14 @@ QString ProtocolGenertor::source() const
 QByteArray ProtocolGenertor::generate()
 {
     return QByteArray();
+}
+
+void ProtocolGenertor::setLanguageMap(LanguageMap *)
+{
+
+}
+
+LanguageMap* ProtocolGenertor::languageMap() const
+{
+    return Q_NULLPTR;
 }

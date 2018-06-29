@@ -5,7 +5,7 @@
 #include <QtNetwork/QNetworkRequest>
 
 //QNetworkTranslator
-#include "translator_global.h"
+#include "networktranslator_global.h"
 
 ///////////////////////////////////////
 /// \brief The NetworkRequestFactory class

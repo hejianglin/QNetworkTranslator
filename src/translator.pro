@@ -8,7 +8,7 @@ CONFIG += console
 CONFIG -= app_bundle
 
 TEMPLATE = app
-#DEFINES += TRANSLATOR_LIBRARY //lib
+#DEFINES += QNETWORKTRANSLATOR_LIBRARY //lib
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -26,21 +26,32 @@ HEADERS += \
     protocolreader.h \
     protocolgenertor.h \
     protocolgenertor_baidu.h \
-    translator.h \
     networkrequestfactory.h \
     languagemap.h \
-    translatorrequest.h \
-    translatorreply.h \
-    translator_p.h \
-    translator_global.h \
-    protocolreader_baidu.h
+    protocolreader_baidu.h \
+    protocolgenertorfactory.h \
+    protocolreaderfactory.h \
+    languagemap_baidu.h \
+    languagemapfactory.h \
+    networktranslator.h \
+    languagemap_sougou.h \
+    protocolgenertor_sougou.h \
+    protocolreader_sougou.h \
+    networktranslatorreply.h \
+    networktranslator_global.h \
+    networktranslator_p.h \
+    networktranslatorrequest.h
 
 SOURCES += main.cpp \
     protocolreader.cpp \
     protocolgenertor_baidu.cpp \
     protocolgenertor.cpp \
-    translator.cpp \
     languagemap.cpp \
-    translatorrequest.cpp \
-    translatorreply.cpp \
-    protocolreader_baidu.cpp
+    protocolreader_baidu.cpp \
+    languagemap_baidu.cpp \
+    networktranslator.cpp \
+    languagemap_sougou.cpp \
+    protocolgenertor_sougou.cpp \
+    protocolreader_sougou.cpp \
+    networktranslatorreply.cpp \
+    networktranslatorrequest.cpp
