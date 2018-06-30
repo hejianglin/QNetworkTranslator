@@ -14,13 +14,15 @@
 #include "protocolreader.h"
 #include "networktranslator_global.h"
 
-class QNetworkTranslator;
-class QNetworkTranslatorPrivate
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
+class NetworkTranslator;
+class NetworkTranslatorPrivate
 {
-    Q_DECLARE_PUBLIC(QNetworkTranslator)
+    Q_DECLARE_PUBLIC(NetworkTranslator)
 public:
-    QNetworkTranslatorPrivate(QNetworkTranslator *q);
-    ~QNetworkTranslatorPrivate();
+    NetworkTranslatorPrivate(NetworkTranslator *q);
+    ~NetworkTranslatorPrivate();
 
     void init();
     bool isValid();
@@ -42,8 +44,9 @@ public:
     //slot
     void _q_finished(QNetworkReply *);
 
-    QNetworkTranslator *q_ptr;
+    NetworkTranslator *q_ptr;
 };
 
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif // TRANSLATOR_P_H

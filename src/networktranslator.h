@@ -1,5 +1,5 @@
-#ifndef TRANSLATOR_H
-#define TRANSLATOR_H
+#ifndef QNETWORKTRANSLATOR_H
+#define QNETWORKTRANSLATOR_H
 
 //Qt
 #include <QtCore/QObject>
@@ -9,16 +9,18 @@
 #include "networktranslatorrequest.h"
 #include "networktranslatorreply.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class QUrl;
-class QNetworkTranslatorPrivate;
-class QNetworkTranslator : public QObject
+class NetworkTranslatorPrivate;
+class NetworkTranslator : public QObject
 {
     Q_OBJECT
-    Q_DISABLE_COPY(QNetworkTranslator)
+    Q_DISABLE_COPY(NetworkTranslator)
 
 public:
-    QNetworkTranslator(QObject *parent = 0);
-    ~QNetworkTranslator();
+    NetworkTranslator(QObject *parent = 0);
+    ~NetworkTranslator();
 
     void setTranslatorClient(TranslatorClient);
     TranslatorClient translatorClient() const;
@@ -41,16 +43,17 @@ public:
     QString errorString() const;
 
     bool translator(const QString &source);
-    bool translator(const QStringList &source);
-    bool translator(QNetworkTranslatorRequest &request);
+    bool translator(NetworkTranslatorRequest &request);
 
 signals:
-    void finished(QNetworkTranslatorReply);
+    void finished(NetworkTranslatorReply);
 
 private:
-    Q_DECLARE_PRIVATE(QNetworkTranslator)
+    Q_DECLARE_PRIVATE(NetworkTranslator)
     Q_PRIVATE_SLOT(d_func(),void _q_finished(QNetworkReply *))
-    QNetworkTranslatorPrivate *d_ptr;
+    NetworkTranslatorPrivate *d_ptr;
 };
 
-#endif // TRANSLATOR_H
+NETWORKTRANSLATOR_NAMESPACE_END
+
+#endif // QNETWORKTRANSLATOR_H

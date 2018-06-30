@@ -7,6 +7,8 @@
 //QNetworkTranslator
 #include "protocolreader_baidu.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class ProtocolReaderPrivate_Baidu : public QSharedData
 {
 public:
@@ -49,8 +51,10 @@ public:
         QJsonArray result = dataObj["trans_result"].toArray();
         for (int resultIndex = 0; resultIndex < result.size(); ++resultIndex) {
             QJsonObject resultObj = result[resultIndex].toObject();
-            m_slSource.append(resultObj["src"].toString());
-            m_slTarget.append(resultObj["dst"].toString());
+            m_sSource.append(resultObj["src"].toString() \
+                    + (resultIndex == result.size() - 1 ? "" : "\n"));
+            m_sTarget.append(resultObj["dst"].toString() \
+                    + (resultIndex == result.size() - 1 ? "" : "\n"));
         }
     }
 
@@ -58,8 +62,8 @@ public:
     QString m_sErrorString;
     LanguageType m_eSourceLanguage;
     LanguageType m_eTargetLanguage;
-    QStringList m_slSource;
-    QStringList m_slTarget;
+    QString m_sSource;
+    QString m_sTarget;
     LanguageMap *m_cLanguageMap;
 };
 
@@ -72,6 +76,7 @@ ProtocolReader_Baidu::ProtocolReader_Baidu()
 ProtocolReader_Baidu::~ProtocolReader_Baidu()
 {
     d = 0;
+
 }
 
 void ProtocolReader_Baidu::setLanguageMap(LanguageMap *map)
@@ -104,14 +109,14 @@ LanguageType ProtocolReader_Baidu::targetLanguage() const
     return d->m_eTargetLanguage;
 }
 
-QStringList ProtocolReader_Baidu::source() const
+QString ProtocolReader_Baidu::source() const
 {
-    return d->m_slSource;
+    return d->m_sSource;
 }
 
-QStringList ProtocolReader_Baidu::target() const
+QString ProtocolReader_Baidu::target() const
 {
-    return d->m_slTarget;
+    return d->m_sTarget;
 }
 
 int ProtocolReader_Baidu::error() const
@@ -124,5 +129,6 @@ QString ProtocolReader_Baidu::errorString() const
     return d->m_sErrorString;
 }
 
+NETWORKTRANSLATOR_NAMESPACE_END
 
 

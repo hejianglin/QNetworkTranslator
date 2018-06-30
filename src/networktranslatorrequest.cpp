@@ -5,27 +5,36 @@
 //QNetworkTranslator
 #include "networktranslatorrequest.h"
 
-class QNetworkTranslatorRequestPrivate : public QSharedData
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
+class NetworkTranslatorRequestPrivate : public QSharedData
 {
 public:
-    inline QNetworkTranslatorRequestPrivate()
+    inline NetworkTranslatorRequestPrivate()
         : m_eSourceLanguage(LanguageType_eAuto)
         , m_eTargetLanguage(LanguageType_eNone)
-    {}
+    {
 
-    QNetworkTranslatorRequestPrivate(const QNetworkTranslatorRequestPrivate &other)
+    }
+
+    NetworkTranslatorRequestPrivate(const NetworkTranslatorRequestPrivate &other)
         : QSharedData(other)
     {
         m_eSourceLanguage = other.m_eSourceLanguage;
         m_eTargetLanguage = other.m_eTargetLanguage;
-        m_slSource = other.m_slSource;
+        m_sSource = other.m_sSource;
     }
 
-    inline bool operator==(const QNetworkTranslatorRequestPrivate &other) const
+    ~NetworkTranslatorRequestPrivate()
+    {
+
+    }
+
+    inline bool operator==(const NetworkTranslatorRequestPrivate &other) const
     {
         return m_eSourceLanguage == other.m_eSourceLanguage &&
                 m_eTargetLanguage == other.m_eTargetLanguage &&
-                m_slSource == other.m_slSource;
+                m_sSource == other.m_sSource;
     }
 
     bool isValid()
@@ -40,7 +49,7 @@ public:
             return false;
         }
 
-        if(m_slSource.isEmpty()){
+        if(m_sSource.isEmpty()){
             m_sErrorString = QObject::tr("source unset");
             return false;
         }
@@ -50,75 +59,76 @@ public:
     LanguageType m_eSourceLanguage;
     LanguageType m_eTargetLanguage;
     QString m_sErrorString;
-    QStringList m_slSource;
+    QString m_sSource;
 };
 
-QNetworkTranslatorRequest::QNetworkTranslatorRequest()
-    : d(new QNetworkTranslatorRequestPrivate)
+NetworkTranslatorRequest::NetworkTranslatorRequest()
+    : d(new NetworkTranslatorRequestPrivate)
 {
 
 }
 
-QNetworkTranslatorRequest::QNetworkTranslatorRequest(const QNetworkTranslatorRequest &other)
+NetworkTranslatorRequest::NetworkTranslatorRequest(const NetworkTranslatorRequest &other)
     :d(other.d)
 {
 
 }
 
-QNetworkTranslatorRequest::~QNetworkTranslatorRequest()
+NetworkTranslatorRequest::~NetworkTranslatorRequest()
 {
     d = 0;
+
 }
 
-QNetworkTranslatorRequest & QNetworkTranslatorRequest::operator=(const QNetworkTranslatorRequest &other)
+NetworkTranslatorRequest & NetworkTranslatorRequest::operator=(const NetworkTranslatorRequest &other)
 {
     d = other.d;
     return *this;
 }
 
-bool QNetworkTranslatorRequest::operator==(const QNetworkTranslatorRequest &other) const
+bool NetworkTranslatorRequest::operator==(const NetworkTranslatorRequest &other) const
 {
     return d == other.d || *d == *other.d;
 }
 
-void QNetworkTranslatorRequest::setSourceLanguage(LanguageType source)
+void NetworkTranslatorRequest::setSourceLanguage(LanguageType source)
 {
     d->m_eSourceLanguage = source;
 }
 
-LanguageType QNetworkTranslatorRequest::sourceLanguage() const
+LanguageType NetworkTranslatorRequest::sourceLanguage() const
 {
     return d->m_eSourceLanguage;
 }
 
-void QNetworkTranslatorRequest::setTargetLanguage(LanguageType target)
+void NetworkTranslatorRequest::setTargetLanguage(LanguageType target)
 {
     d->m_eTargetLanguage = target;
 }
 
-LanguageType QNetworkTranslatorRequest::targetLanguage() const
+LanguageType NetworkTranslatorRequest::targetLanguage() const
 {
     return d->m_eTargetLanguage;
 }
 
-void QNetworkTranslatorRequest::setSource(const QStringList &source)
+void NetworkTranslatorRequest::setSource(const QString &source)
 {
-    d->m_slSource = source;
+    d->m_sSource = source;
 }
 
-QStringList QNetworkTranslatorRequest::source() const
+QString NetworkTranslatorRequest::source() const
 {
-    return d->m_slSource;
+    return d->m_sSource;
 }
 
-bool QNetworkTranslatorRequest::isValid()
+bool NetworkTranslatorRequest::isValid()
 {
     return d->isValid();
 }
 
-QString QNetworkTranslatorRequest::errorString() const
+QString NetworkTranslatorRequest::errorString() const
 {
     return d->m_sErrorString;
 }
 
-QNETWORKTRANSLATOR_NAMESPACE_END
+NETWORKTRANSLATOR_NAMESPACE_END

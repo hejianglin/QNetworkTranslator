@@ -1,6 +1,8 @@
 //QNetworkTranslator
 #include "protocolgenertor.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 ProtocolGenertor::ProtocolGenertor()
 {
 
@@ -51,14 +53,14 @@ LanguageType ProtocolGenertor::targetLanguage() const
     return LanguageType_eNone;
 }
 
-void ProtocolGenertor::setSource(const QStringList &)
+void ProtocolGenertor::setSource(const QString &)
 {
 
 }
 
-QStringList ProtocolGenertor::source() const
+QString ProtocolGenertor::source() const
 {
-    return QStringList();
+    return QString();
 }
 
 bool ProtocolGenertor::isValid()
@@ -85,3 +87,5 @@ LanguageMap* ProtocolGenertor::languageMap() const
 {
     return Q_NULLPTR;
 }
+
+NETWORKTRANSLATOR_NAMESPACE_END

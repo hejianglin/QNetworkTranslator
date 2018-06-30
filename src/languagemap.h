@@ -7,6 +7,8 @@
 //QNetworkTranslator
 #include "networktranslator_global.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class LanguageMap
 {
     Q_DISABLE_COPY(LanguageMap)
@@ -17,5 +19,7 @@ public:
     virtual QString languageString(LanguageType) const;
     virtual LanguageType languageType(const QString &) const;
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif // LANGUAGEMAP_H

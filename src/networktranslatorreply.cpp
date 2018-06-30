@@ -4,132 +4,142 @@
 //QNetworkTranslator
 #include "networktranslatorreply.h"
 
-class QNetworkTranslatorReplyPrivate : public QSharedData
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
+class NetworkTranslatorReplyPrivate : public QSharedData
 {
 public:
-    inline QNetworkTranslatorReplyPrivate()
+    inline NetworkTranslatorReplyPrivate()
         : m_eSourceLanguageType(LanguageType_eNone)
         , m_eTargetLanguageType(LanguageType_eNone)
-        , m_eError(QNetworkTranslatorReply::TranslatorError_eNone)
+        , m_eError(NetworkTranslatorReply::TranslatorError_eNone)
     {
 
     }
 
-    QNetworkTranslatorReplyPrivate(const QNetworkTranslatorReplyPrivate &other)
+    ~NetworkTranslatorReplyPrivate()
+    {
+
+    }
+
+    NetworkTranslatorReplyPrivate(const NetworkTranslatorReplyPrivate &other)
         : QSharedData(other)
     {
         m_eSourceLanguageType = other.m_eSourceLanguageType;
         m_eTargetLanguageType = other.m_eTargetLanguageType;
-        m_slSource = other.m_slSource;
-        m_slTarget = other.m_slTarget;
+        m_sSource = other.m_sSource;
+        m_sTarget = other.m_sTarget;
         m_eError = other.m_eError;
         m_sErrorString = other.m_sErrorString;
 
     }
 
-    inline bool operator==(const QNetworkTranslatorReplyPrivate &other) const
+    inline bool operator==(const NetworkTranslatorReplyPrivate &other) const
     {
         return m_eSourceLanguageType == other.m_eSourceLanguageType &&
                 m_eTargetLanguageType == other.m_eTargetLanguageType &&
-                m_slSource == other.m_slSource &&
-                m_slTarget == other.m_slTarget &&
+                m_sSource == other.m_sSource &&
+                m_sTarget == other.m_sTarget &&
                 m_eError == other.m_eError &&
                 m_sErrorString == other.m_sErrorString;
     }
 
     LanguageType m_eSourceLanguageType;
     LanguageType m_eTargetLanguageType;
-    QStringList m_slSource;
-    QStringList m_slTarget;
-    QNetworkTranslatorReply::TranslatorError m_eError;
+    QString m_sSource;
+    QString m_sTarget;
+    NetworkTranslatorReply::TranslatorError m_eError;
     QString m_sErrorString;
 };
 
 
-QNetworkTranslatorReply::QNetworkTranslatorReply()
-    : d(new QNetworkTranslatorReplyPrivate)
+NetworkTranslatorReply::NetworkTranslatorReply()
+    : d(new NetworkTranslatorReplyPrivate)
 {
 
 }
 
-QNetworkTranslatorReply::QNetworkTranslatorReply(const QNetworkTranslatorReply &other)
+NetworkTranslatorReply::NetworkTranslatorReply(const NetworkTranslatorReply &other)
     :d(other.d)
 {
 
 }
 
-QNetworkTranslatorReply::~QNetworkTranslatorReply()
+NetworkTranslatorReply::~NetworkTranslatorReply()
 {
-    d = 0;
+   d = 0;
+
 }
 
-QNetworkTranslatorReply & QNetworkTranslatorReply::operator=(const QNetworkTranslatorReply &other)
+NetworkTranslatorReply & NetworkTranslatorReply::operator=(const NetworkTranslatorReply &other)
 {
     d = other.d;
     return *this;
 }
 
-bool QNetworkTranslatorReply::operator==(const QNetworkTranslatorReply &other) const
+bool NetworkTranslatorReply::operator==(const NetworkTranslatorReply &other) const
 {
     return d == other.d || *d == *other.d;
 }
 
-void QNetworkTranslatorReply::setSourceLanguage(LanguageType type)
+void NetworkTranslatorReply::setSourceLanguage(LanguageType type)
 {
     d->m_eSourceLanguageType = type;
 }
 
-LanguageType QNetworkTranslatorReply::sourceLanguage() const
+LanguageType NetworkTranslatorReply::sourceLanguage() const
 {
     return d->m_eSourceLanguageType;
 }
 
-void QNetworkTranslatorReply::setTargetLanguage(LanguageType type)
+void NetworkTranslatorReply::setTargetLanguage(LanguageType type)
 {
     d->m_eTargetLanguageType = type;
 }
 
-LanguageType QNetworkTranslatorReply::targetLanguage() const
+LanguageType NetworkTranslatorReply::targetLanguage() const
 {
     return d->m_eTargetLanguageType;
 }
 
-void QNetworkTranslatorReply::setSource(const QStringList &source)
+void NetworkTranslatorReply::setSource(const QString &source)
 {
-    d->m_slSource = source;
+    d->m_sSource = source;
 }
 
-QStringList QNetworkTranslatorReply::source() const
+QString NetworkTranslatorReply::source() const
 {
-    return d->m_slSource;
+    return d->m_sSource;
 }
 
-void QNetworkTranslatorReply::setTarget(const QStringList &target)
+void NetworkTranslatorReply::setTarget(const QString &target)
 {
-    d->m_slTarget = target;
+    d->m_sTarget = target;
 }
 
-QStringList QNetworkTranslatorReply::target() const
+QString NetworkTranslatorReply::target() const
 {
-    return d->m_slTarget;
+    return d->m_sTarget;
 }
 
-void QNetworkTranslatorReply::setError(TranslatorError error)
+void NetworkTranslatorReply::setError(TranslatorError error)
 {
     d->m_eError = error;
 }
 
-QNetworkTranslatorReply::TranslatorError QNetworkTranslatorReply::error() const
+NetworkTranslatorReply::TranslatorError NetworkTranslatorReply::error() const
 {
     return d->m_eError;
 }
 
-void QNetworkTranslatorReply::setErrorString(const QString &error)
+void NetworkTranslatorReply::setErrorString(const QString &error)
 {
     d->m_sErrorString = error;
 }
 
-QString QNetworkTranslatorReply::errorString() const
+QString NetworkTranslatorReply::errorString() const
 {
     return d->m_sErrorString;
 }
+
+NETWORKTRANSLATOR_NAMESPACE_END

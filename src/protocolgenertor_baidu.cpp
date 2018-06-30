@@ -7,11 +7,18 @@
 //QNetworkTranslator
 #include "protocolgenertor_baidu.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class ProtocolGenertorPrivate_Baidu : public QSharedData
 {
 public:
     inline ProtocolGenertorPrivate_Baidu(LanguageMap *map = Q_NULLPTR)
         :m_cLanguageMap(map)
+    {
+
+    }
+
+    ~ ProtocolGenertorPrivate_Baidu()
     {
 
     }
@@ -38,7 +45,7 @@ public:
             m_sErrorString = QObject::tr("target language type unset");
             return false;
         }
-        if(m_slSource.isEmpty()){
+        if(m_sSource.isEmpty()){
             m_sErrorString = QObject::tr("source is empty");
             return false;
         }
@@ -49,7 +56,7 @@ public:
     {
         QByteArray temp;
         temp.append(m_sAppID);
-        temp.append(m_slSource.join("\n"));
+        temp.append(m_sSource);
         temp.append(QString::number(m_iRandomNumber));
         temp.append(m_sAppKey);
         return QString(QCryptographicHash::hash(temp,QCryptographicHash::Md5).toHex());
@@ -60,7 +67,7 @@ public:
     int m_iRandomNumber;
     QString m_sAppID;
     QString m_sAppKey;
-    QStringList m_slSource;
+    QString m_sSource;
     QString m_sErrorString;
     LanguageMap *m_cLanguageMap;
 };
@@ -69,12 +76,12 @@ ProtocolGenertor_Baidu::ProtocolGenertor_Baidu()
     :ProtocolGenertor()
     ,d(new ProtocolGenertorPrivate_Baidu())
 {
-
 }
 
 ProtocolGenertor_Baidu::~ProtocolGenertor_Baidu()
 {
     d = 0;
+
 }
 
 void ProtocolGenertor_Baidu::setAppID(const QString &appid)
@@ -117,14 +124,14 @@ LanguageType ProtocolGenertor_Baidu::targetLanguage() const
     return d->m_eTargetLanguage;
 }
 
-void ProtocolGenertor_Baidu::setSource(const QStringList &source)
+void ProtocolGenertor_Baidu::setSource(const QString &source)
 {
-    d->m_slSource = source;
+    d->m_sSource = source;
 }
 
-QStringList ProtocolGenertor_Baidu::source() const
+QString ProtocolGenertor_Baidu::source() const
 {
-    return d->m_slSource;
+    return d->m_sSource;
 }
 
 void ProtocolGenertor_Baidu::setLanguageMap(LanguageMap *map)
@@ -154,7 +161,7 @@ QByteArray ProtocolGenertor_Baidu::generate()
     }
 
     QStringList slProtol;
-    slProtol.append("q=" + QString(QUrl::toPercentEncoding(d->m_slSource.join("\n"))));
+    slProtol.append("q=" + QString(QUrl::toPercentEncoding(d->m_sSource)));
     slProtol.append("from=" + d->m_cLanguageMap->languageString(d->m_eSourceLanguage));
     slProtol.append("to=" + d->m_cLanguageMap->languageString(d->m_eTargetLanguage));
     slProtol.append("appid=" + d->m_sAppID);
@@ -164,3 +171,5 @@ QByteArray ProtocolGenertor_Baidu::generate()
     QByteArray temp;
     return temp.append(slProtol.join("&"));
 }
+
+NETWORKTRANSLATOR_NAMESPACE_END

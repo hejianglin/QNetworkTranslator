@@ -8,6 +8,8 @@
 #include "languagemap.h"
 #include "protocolgenertor.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class ProtocolGenertorPrivate_Baidu;
 class ProtocolGenertor_Baidu : public ProtocolGenertor
 {
@@ -28,8 +30,8 @@ public:
     void setTargetLanguage(LanguageType) override;
     LanguageType targetLanguage() const override;
 
-    void setSource(const QStringList &) override;
-    QStringList source() const override;
+    void setSource(const QString &) override;
+    QString source() const override;
 
     void setLanguageMap(LanguageMap *) override;
     LanguageMap *languageMap() const override;
@@ -42,5 +44,7 @@ private:
     QSharedDataPointer<ProtocolGenertorPrivate_Baidu> d;
     friend class ProtocolGenertorPrivate_Baidu;
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif// PROTOCOLGENERTOR_BAIDU_H

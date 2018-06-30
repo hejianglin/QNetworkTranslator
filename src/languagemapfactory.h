@@ -6,6 +6,9 @@
 #include "languagemap_baidu.h"
 #include "languagemap_sougou.h"
 
+
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class LanguageMapFactory
 {
 public:
@@ -30,5 +33,7 @@ public:
         return new LanguageMap;
     }
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif // LANGUAGEMAPFACTORY_H

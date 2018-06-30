@@ -8,6 +8,8 @@
 #include "languagemap.h"
 #include "networktranslator_global.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class ProtocolReader
 {
 public:
@@ -21,11 +23,13 @@ public:
     virtual void read(const QString &);
     virtual LanguageType sourceLanguage() const;
     virtual LanguageType targetLanguage() const;
-    virtual QStringList source() const;
-    virtual QStringList target() const;
+    virtual QString source() const;
+    virtual QString target() const;
 
     virtual int error() const;
     virtual QString errorString() const;
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif // PROTOCOLREADER_H

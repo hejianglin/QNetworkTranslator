@@ -8,18 +8,20 @@
 //QNetworkTranslator
 #include "networktranslator_global.h"
 
-class QNetworkTranslatorRequestPrivate;
-class QNetworkTranslatorRequest
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
+class NetworkTranslatorRequestPrivate;
+class NetworkTranslatorRequest
 {
 public:
-    explicit QNetworkTranslatorRequest();
-    QNetworkTranslatorRequest(const QNetworkTranslatorRequest &other);
-    ~QNetworkTranslatorRequest();
+    explicit NetworkTranslatorRequest();
+    NetworkTranslatorRequest(const NetworkTranslatorRequest &other);
+    ~NetworkTranslatorRequest();
 
-    QNetworkTranslatorRequest &operator=(const QNetworkTranslatorRequest &other);
+    NetworkTranslatorRequest &operator=(const NetworkTranslatorRequest &other);
 
-    bool operator==(const QNetworkTranslatorRequest &other) const;
-    inline bool operator!=(const QNetworkTranslatorRequest &other) const
+    bool operator==(const NetworkTranslatorRequest &other) const;
+    inline bool operator!=(const NetworkTranslatorRequest &other) const
     { return !operator==(other); }
 
     void setSourceLanguage(LanguageType);
@@ -28,15 +30,17 @@ public:
     void setTargetLanguage(LanguageType);
     LanguageType targetLanguage() const;
 
-    void setSource(const QStringList &);
-    QStringList source() const;
+    void setSource(const QString &);
+    QString source() const;
 
     bool isValid();
     QString errorString() const;
 
 private:
-    QSharedDataPointer<QNetworkTranslatorRequestPrivate> d;
-    friend class QNetworkTranslatorRequestPrivate;
+    QSharedDataPointer<NetworkTranslatorRequestPrivate> d;
+    friend class NetworkTranslatorRequestPrivate;
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif // TRANSLATORREQUEST_H

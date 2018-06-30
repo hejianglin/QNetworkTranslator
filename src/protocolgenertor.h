@@ -9,9 +9,9 @@
 #include "languagemap.h"
 #include "networktranslator_global.h"
 
-///////////////////////////////////////
-/// \brief The ProtocolGenertor class
-///
+
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class ProtocolGenertor
 {
     Q_DISABLE_COPY(ProtocolGenertor)
@@ -31,8 +31,8 @@ public:
     virtual void setTargetLanguage(LanguageType);
     virtual LanguageType targetLanguage() const;
 
-    virtual void setSource(const QStringList &);
-    virtual QStringList source() const;
+    virtual void setSource(const QString &);
+    virtual QString source() const;
 
     virtual void setLanguageMap(LanguageMap *);
     virtual LanguageMap *languageMap() const;
@@ -41,5 +41,7 @@ public:
     virtual QString errorString() const;
     virtual QByteArray generate();
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif

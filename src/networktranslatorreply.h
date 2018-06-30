@@ -1,5 +1,5 @@
-#ifndef TRANSLATORREPLY_H
-#define TRANSLATORREPLY_H
+#ifndef NETWORKTRANSLATORREPLY_H
+#define NETWORKTRANSLATORREPLY_H
 
 //Qt
 #include <QtCore/QString>
@@ -8,8 +8,10 @@
 //QNetworkTranslaotr
 #include "networktranslator_global.h"
 
-class QNetworkTranslatorReplyPrivate;
-class QNetworkTranslatorReply
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
+class NetworkTranslatorReplyPrivate;
+class NetworkTranslatorReply
 {
 public:
     enum TranslatorError
@@ -17,34 +19,36 @@ public:
         TranslatorError_eNone
     };
 
-    explicit QNetworkTranslatorReply();
-    QNetworkTranslatorReply(const QNetworkTranslatorReply &other);
-    ~QNetworkTranslatorReply();
+    explicit NetworkTranslatorReply();
+    NetworkTranslatorReply(const NetworkTranslatorReply &other);
+    ~NetworkTranslatorReply();
 
-    QNetworkTranslatorReply &operator =(const QNetworkTranslatorReply &other);
-    bool operator==(const QNetworkTranslatorReply &other) const;
-    inline bool operator!=(const QNetworkTranslatorReply &other) const
+    NetworkTranslatorReply &operator =(const NetworkTranslatorReply &other);
+    bool operator==(const NetworkTranslatorReply &other) const;
+    inline bool operator!=(const NetworkTranslatorReply &other) const
     { return !operator==(other); }
 
     LanguageType sourceLanguage() const;
     LanguageType targetLanguage() const;
-    QStringList source() const;
-    QStringList target() const;
-    QNetworkTranslatorReply::TranslatorError error() const;
+    QString source() const;
+    QString target() const;
+    NetworkTranslatorReply::TranslatorError error() const;
     QString errorString() const;
 
 protected:
     void setSourceLanguage(LanguageType);
     void setTargetLanguage(LanguageType);
-    void setSource(const QStringList &);
-    void setTarget(const QStringList &);
+    void setSource(const QString &);
+    void setTarget(const QString &);
     void setError(TranslatorError);
     void setErrorString(const QString &);
 
 private:
-    QSharedDataPointer<QNetworkTranslatorReplyPrivate> d;
-    friend class QNetworkTranslatorReplyPrivate;
-    friend class QNetworkTranslatorPrivate;
+    QSharedDataPointer<NetworkTranslatorReplyPrivate> d;
+    friend class NetworkTranslatorReplyPrivate;
+    friend class NetworkTranslatorPrivate;
 };
 
-#endif // TRANSLATORREPLY_H
+NETWORKTRANSLATOR_NAMESPACE_END
+
+#endif // NETWORKTRANSLATORREPLY_H

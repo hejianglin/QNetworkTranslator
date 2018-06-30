@@ -4,6 +4,8 @@
 //QNetworkTranslator
 #include "languagemap_sougou.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class LanguageMapPrivate_Sougou : public QSharedData
 {
 public:
@@ -15,7 +17,7 @@ public:
     void init()
     {
         languageMap.insert(LanguageType_eAuto,"auto");
-        languageMap.insert(LanguageType_eZh,"zh-CHS");
+        languageMap.insert(LanguageType_eZh_Simplified,"zh-CHS");
         languageMap.insert(LanguageType_eEn,"en");
     }
 
@@ -49,3 +51,5 @@ LanguageType LanguageMap_Sougou::languageType(const QString &type) const
     }
     return LanguageType_eNone;
 }
+
+NETWORKTRANSLATOR_NAMESPACE_END

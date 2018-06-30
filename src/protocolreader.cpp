@@ -1,6 +1,8 @@
 //QNetwrokTranslaotr
 #include "protocolreader.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 ProtocolReader::ProtocolReader()
 {
 
@@ -41,14 +43,14 @@ LanguageType ProtocolReader::targetLanguage() const
     return LanguageType_eNone;
 }
 
-QStringList ProtocolReader::source() const
+QString ProtocolReader::source() const
 {
-    return QStringList();
+    return QString();
 }
 
-QStringList ProtocolReader::target() const
+QString ProtocolReader::target() const
 {
-    return QStringList();
+    return QString();
 }
 
 int ProtocolReader::error() const
@@ -60,3 +62,5 @@ QString ProtocolReader::errorString() const
 {
     return QString();
 }
+
+NETWORKTRANSLATOR_NAMESPACE_END

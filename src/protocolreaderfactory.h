@@ -6,6 +6,8 @@
 #include "protocolreader_baidu.h"
 #include "protocolreader_sougou.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class ProtocolReaderFactory
 {
 public:
@@ -23,12 +25,14 @@ public:
     {
         switch (client) {
         case TranslatorClient_eBaidu: return new ProtocolReader_Baidu;
-        //case TranslatorClient_eSougou : return new ProtocolReader_Sougou;
+        case TranslatorClient_eSougou : return new ProtocolReader_Sougou;
         default:
             break;
         }
         return new ProtocolReader;
     }
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif // PROTOCOLREADERFACTORY_H

@@ -4,6 +4,8 @@
 //QNetworkTranslator
 #include "languagemap.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class LanguageMapPrivate_Baidu;
 class LanguageMap_Baidu : public LanguageMap
 {
@@ -19,5 +21,7 @@ private:
     QSharedDataPointer<LanguageMapPrivate_Baidu> d;
     friend class LanguageMapPrivate_Baidu;
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif // LANGUAGEMAP_BAIDU_H

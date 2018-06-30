@@ -4,6 +4,8 @@
 //QNetworkTranslator
 #include "languagemap_baidu.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class LanguageMapPrivate_Baidu : public QSharedData
 {
 public:
@@ -12,10 +14,15 @@ public:
 
     }
 
+    ~LanguageMapPrivate_Baidu()
+    {
+
+    }
+
     void init()
     {
         languageMap.insert(LanguageType_eAuto,"auto");
-        languageMap.insert(LanguageType_eZh,"zh");
+        languageMap.insert(LanguageType_eZh_Simplified,"zh");
         languageMap.insert(LanguageType_eEn,"en");
     }
 
@@ -32,6 +39,7 @@ LanguageMap_Baidu::LanguageMap_Baidu()
 LanguageMap_Baidu::~LanguageMap_Baidu()
 {
     d = 0;
+
 }
 
 QString LanguageMap_Baidu::languageString(LanguageType type) const
@@ -49,3 +57,5 @@ LanguageType LanguageMap_Baidu::languageType(const QString &type) const
     }
     return LanguageType_eNone;
 }
+
+NETWORKTRANSLATOR_NAMESPACE_END

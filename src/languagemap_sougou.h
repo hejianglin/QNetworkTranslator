@@ -5,6 +5,8 @@
 //QNetworkTranslator
 #include "languagemap.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class LanguageMapPrivate_Sougou;
 class LanguageMap_Sougou : public LanguageMap
 {
@@ -20,5 +22,7 @@ private:
     QSharedDataPointer<LanguageMapPrivate_Sougou> d;
     friend class LanguageMapPrivate_Sougou;
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 
 #endif // LANGUAGEMAP_SOUGOU_H

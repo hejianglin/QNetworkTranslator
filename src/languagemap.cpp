@@ -1,6 +1,8 @@
 //QNetworkTranslator
 #include "languagemap.h"
 
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 LanguageMap::LanguageMap()
 {
 
@@ -21,3 +23,4 @@ QString LanguageMap::languageString(LanguageType) const
     return QString();
 }
 
+NETWORKTRANSLATOR_NAMESPACE_END

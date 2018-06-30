@@ -2,14 +2,14 @@
 #define NETWORKREQUESTFACTORY_H
 
 //Qt
+#include <QtCore/QUrl>
 #include <QtNetwork/QNetworkRequest>
 
 //QNetworkTranslator
 #include "networktranslator_global.h"
 
-///////////////////////////////////////
-/// \brief The NetworkRequestFactory class
-///
+NETWORKTRANSLATOR_NAMESPACE_BEGIN
+
 class NetworkRequestFactory
 {
 public:
@@ -46,4 +46,6 @@ public:
         return head;
     }
 };
+
+NETWORKTRANSLATOR_NAMESPACE_END
 #endif // NETWORKREQUESTFACTORY_H
