@@ -2,6 +2,8 @@
 #include <QtCore/QTextCodec>
 #include <QtNetwork/QNetworkReply>
 
+#include <QDebug>
+
 //QNetworkTranslator
 #include "networktranslator.h"
 #include "networktranslator_p.h"
@@ -13,7 +15,7 @@
 NETWORKTRANSLATOR_NAMESPACE_BEGIN
 
 NetworkTranslatorPrivate::NetworkTranslatorPrivate(NetworkTranslator *q)
-    : m_eClient(TranslatorClient_eNone)
+    : m_eClient(TranslationClient_eNone)
     , m_eSourceLanguage_Default(LanguageType_eAuto)
     , m_eTargetLanguage_Default(LanguageType_eNone)
     , m_cLanguageMap(Q_NULLPTR)
@@ -43,7 +45,7 @@ NetworkTranslatorPrivate::~NetworkTranslatorPrivate()
 
 void NetworkTranslatorPrivate::init()
 {
-    if(m_eClient <= TranslatorClient_eNone){
+    if(m_eClient <= TranslationClient_eNone){
         return ;
     }
 
@@ -77,7 +79,7 @@ void NetworkTranslatorPrivate::init()
 
 bool NetworkTranslatorPrivate::isValid()
 {
-    if(m_eClient <= TranslatorClient_eNone){
+    if(m_eClient <= TranslationClient_eNone){
         m_sErrorString = QObject::tr("unset translator client");
         return false;
     }
@@ -93,21 +95,26 @@ void NetworkTranslatorPrivate::_q_finished(QNetworkReply *reply)
 {
     Q_Q(NetworkTranslator);
 
+
+
     if(reply == Q_NULLPTR){
         return ;
     }
 
     NetworkTranslatorReply TranslatorReply;
     if(reply->error() != QNetworkReply::NoError){
-        TranslatorReply.setError((NetworkTranslatorReply::TranslatorError)reply->error());
+        TranslatorReply.setError(static_cast<NetworkTranslatorReply::TranslationError>(reply->error()));
         TranslatorReply.setErrorString(reply->errorString());
     } else {
         QTextCodec *pCodec = QTextCodec::codecForName("utf-8");
-        m_cProtocolRead->read(pCodec->toUnicode(reply->readAll()));
+        QString data = pCodec->toUnicode(reply->readAll());
+        m_cProtocolRead->read(data);
         if(m_cProtocolRead->error() != 0){
-           TranslatorReply.setError((NetworkTranslatorReply::TranslatorError)m_cProtocolRead->error());
+            
+            TranslatorReply.setError(static_cast<NetworkTranslatorReply::TranslationError>(m_cProtocolRead->error()));
             TranslatorReply.setErrorString(m_cProtocolRead->errorString());
         } else {
+            
             TranslatorReply.setSourceLanguage(m_cProtocolRead->sourceLanguage());
             TranslatorReply.setTargetLanguage(m_cProtocolRead->targetLanguage());
             TranslatorReply.setSource(m_cProtocolRead->source());
@@ -115,6 +122,7 @@ void NetworkTranslatorPrivate::_q_finished(QNetworkReply *reply)
         }
     }
 
+    
     Q_EMIT q->finished(TranslatorReply);
     reply->deleteLater();
 }
@@ -137,14 +145,14 @@ NetworkTranslator::~NetworkTranslator()
 
 }
 
-void NetworkTranslator::setTranslatorClient(TranslatorClient client)
+void NetworkTranslator::setTranslatorClient(TranslationClient client)
 {
     Q_D(NetworkTranslator);
     d->m_eClient = client;
     d->init();
 }
 
-TranslatorClient NetworkTranslator::translatorClient() const
+TranslationClient NetworkTranslator::translatorClient() const
 {
     Q_D(const NetworkTranslator);
     return d->m_eClient;
@@ -224,24 +232,39 @@ bool NetworkTranslator::translator(NetworkTranslatorRequest &request)
 {
     Q_D(NetworkTranslator);
 
-    //check
-    if(!request.isValid()){
-        d->m_sErrorString = request.errorString();
-        return false;
-    }
+    NetworkTranslatorReply::TranslationError eTranslationError =
+            NetworkTranslatorReply::TranslationError_eNone;
+    do{
+        if(!request.isValid()){
+            eTranslationError = NetworkTranslatorReply::TranslationError_eRequestError;
+            d->m_sErrorString = request.errorString();
+            break;
+        }
 
-    if(!d->isValid()){
-        return false;
-    }
+        if(!d->isValid()){
+            eTranslationError = NetworkTranslatorReply::TranslationError_eConfigError;
+            break;
+        }
 
-    //request
-    d->m_cProtocolGenertor->setAppID(d->m_sAppID);
-    d->m_cProtocolGenertor->setAppKey(d->m_sAppKey);
-    d->m_cProtocolGenertor->setSource(request.source());
-    d->m_cProtocolGenertor->setSourceLanguage(request.sourceLanguage());
-    d->m_cProtocolGenertor->setTargetLanguage(request.targetLanguage());
-    if(!d->m_cProtocolGenertor->isValid()){
-        d->m_sErrorString = d->m_cProtocolGenertor->errorString();
+        d->m_cProtocolGenertor->setAppID(d->m_sAppID);
+        d->m_cProtocolGenertor->setAppKey(d->m_sAppKey);
+        d->m_cProtocolGenertor->setSource(request.source());
+        d->m_cProtocolGenertor->setSourceLanguage(request.sourceLanguage());
+        d->m_cProtocolGenertor->setTargetLanguage(request.targetLanguage());
+        if(!d->m_cProtocolGenertor->isValid()){
+            eTranslationError = NetworkTranslatorReply::TranslationError_eProtocolGenerteError;
+            d->m_sErrorString = d->m_cProtocolGenertor->errorString();
+            break;
+        }
+    }while(0);
+
+    if(eTranslationError != NetworkTranslatorReply::TranslationError_eNone){
+        NetworkTranslatorReply reply;
+        reply.setError(eTranslationError);
+        reply.setErrorString(d->m_sErrorString);
+        reply.setSource(request.source());
+        reply.setSourceLanguage(request.sourceLanguage());
+        reply.setTargetLanguage(request.targetLanguage());
         return false;
     }
 
@@ -251,6 +274,12 @@ bool NetworkTranslator::translator(NetworkTranslatorRequest &request)
 
     d->m_cNetworkAccessManager.post(d->m_cRequestHead,d->m_cProtocolGenertor->generate());
     return true;
+}
+
+bool NetworkTranslator::isValid()
+{
+    Q_D(NetworkTranslator);
+    return d->isValid();
 }
 
 QString NetworkTranslator::errorString() const

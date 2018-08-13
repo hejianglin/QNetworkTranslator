@@ -14,9 +14,12 @@ class NetworkTranslatorReplyPrivate;
 class NetworkTranslatorReply
 {
 public:
-    enum TranslatorError
+    enum TranslationError
     {
-        TranslatorError_eNone
+        TranslationError_eNone,
+        TranslationError_eRequestError = 10000,
+        TranslationError_eConfigError,
+        TranslationError_eProtocolGenerteError
     };
 
     explicit NetworkTranslatorReply();
@@ -32,7 +35,7 @@ public:
     LanguageType targetLanguage() const;
     QString source() const;
     QString target() const;
-    NetworkTranslatorReply::TranslatorError error() const;
+    NetworkTranslatorReply::TranslationError error() const;
     QString errorString() const;
 
 protected:
@@ -40,13 +43,14 @@ protected:
     void setTargetLanguage(LanguageType);
     void setSource(const QString &);
     void setTarget(const QString &);
-    void setError(TranslatorError);
+    void setError(TranslationError);
     void setErrorString(const QString &);
 
 private:
     QSharedDataPointer<NetworkTranslatorReplyPrivate> d;
     friend class NetworkTranslatorReplyPrivate;
     friend class NetworkTranslatorPrivate;
+    friend class NetworkTranslator;
 };
 
 NETWORKTRANSLATOR_NAMESPACE_END

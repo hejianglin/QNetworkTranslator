@@ -1,11 +1,11 @@
 #include <QDebug>
 #include <QCoreApplication>
 
-#include "simpletranslaotr.h"
+#include "simpletranslator.h"
 
 USE_NETWORKTRANSLATOR_NAMESPACE
 
-SimpleTranslaotr::SimpleTranslaotr(QObject *parent)
+SimpleTranslator::SimpleTranslator(QObject *parent)
     : QObject(parent)
     , m_cNetworkTranslator(new NetworkTranslator(this))
 {
@@ -13,7 +13,7 @@ SimpleTranslaotr::SimpleTranslaotr(QObject *parent)
             this,SLOT(translatorFinished(NetworkTranslatorReply)));
 }
 
-void SimpleTranslaotr::translatetest()
+void SimpleTranslator::translatetest()
 {
     m_cNetworkTranslator->setTranslatorClient(TranslatorClient_eBaidu);
     m_cNetworkTranslator->setAppID("");//your appid
@@ -25,7 +25,7 @@ void SimpleTranslaotr::translatetest()
     }
 }
 
-void SimpleTranslaotr::translatorFinished(NetworkTranslatorReply reply)
+void SimpleTranslator::translatorFinished(NetworkTranslatorReply reply)
 {
     if(reply.error() != NetworkTranslatorReply::TranslatorError_eNone){
         qDebug()<<Q_FUNC_INFO<<__LINE__<<reply.error();

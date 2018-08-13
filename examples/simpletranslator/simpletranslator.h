@@ -7,11 +7,11 @@
 
 USE_NETWORKTRANSLATOR_NAMESPACE
 
-class SimpleTranslaotr : public QObject
+class SimpleTranslator : public QObject
 {
     Q_OBJECT
 public:
-    explicit SimpleTranslaotr(QObject *parent = 0);
+    explicit SimpleTranslator(QObject *parent = 0);
     void translatetest();
 
 private slots:

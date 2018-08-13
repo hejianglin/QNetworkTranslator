@@ -22,8 +22,8 @@ public:
     NetworkTranslator(QObject *parent = 0);
     ~NetworkTranslator();
 
-    void setTranslatorClient(TranslatorClient);
-    TranslatorClient translatorClient() const;
+    void setTranslatorClient(TranslationClient);
+    TranslationClient translatorClient() const;
 
     void setTranslatorClientUrl(const QString &url);
     QString translatorClientUrl() const;
@@ -40,6 +40,7 @@ public:
     void setDefaultTargetLanguage(LanguageType);
     LanguageType defaultTargetLanguage() const;
 
+    bool isValid();
     QString errorString() const;
 
     bool translator(const QString &source);

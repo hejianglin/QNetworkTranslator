@@ -22,11 +22,11 @@ public:
 
     }
 
-    ProtocolGenertor *create(TranslatorClient client)
+    ProtocolGenertor *create(TranslationClient client)
     {
         switch (client) {
-        case TranslatorClient_eBaidu: return new ProtocolGenertor_Baidu;
-        case TranslatorClient_eSougou: return new ProtocolGenertor_Sougou;
+        case TranslationClient_eBaidu: return new ProtocolGenertor_Baidu;
+        case TranslationClient_eSougou: return new ProtocolGenertor_Sougou;
         default:
             break;
         }

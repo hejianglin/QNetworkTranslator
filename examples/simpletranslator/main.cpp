@@ -1,12 +1,12 @@
 #include <QCoreApplication>
 
-#include "simpletranslaotr.h"
+#include "simpletranslator.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    SimpleTranslaotr simpleTranslator;
+    SimpleTranslator simpleTranslator;
     simpleTranslator.translatetest();
 
     return a.exec();

@@ -20,15 +20,14 @@ enum LanguageType{
     LanguageType_eZh_Simplified,
     LanguageType_eZh_Traditional,
     LanguageType_eEn,
-    LanguageType_eYue,
-    LanguageType_eWyW,
     LanguageType_eJp
 };
 
-enum TranslatorClient{
-    TranslatorClient_eNone,
-    TranslatorClient_eBaidu,
-    TranslatorClient_eSougou
+enum TranslationClient{
+    TranslationClient_eNone = -1,
+    TranslationClient_eBaidu,
+    TranslationClient_eSougou,
+    TranslationClient_eTengXun
 };
 NETWORKTRANSLATOR_NAMESPACE_END
 

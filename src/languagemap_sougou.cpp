@@ -16,9 +16,10 @@ public:
 
     void init()
     {
-        languageMap.insert(LanguageType_eAuto,"auto");
-        languageMap.insert(LanguageType_eZh_Simplified,"zh-CHS");
-        languageMap.insert(LanguageType_eEn,"en");
+        languageMap.insert(LanguageType_eAuto,QString("auto"));
+        languageMap.insert(LanguageType_eZh_Simplified,QString("zh-CHS"));
+//        languageMap.insert(LanguageType_eZh_Traditional,QString("zh-CHS"));
+        languageMap.insert(LanguageType_eEn,QString("en"));
     }
 
     QMap<LanguageType,QString> languageMap;

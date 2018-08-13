@@ -12,7 +12,7 @@ public:
     inline NetworkTranslatorReplyPrivate()
         : m_eSourceLanguageType(LanguageType_eNone)
         , m_eTargetLanguageType(LanguageType_eNone)
-        , m_eError(NetworkTranslatorReply::TranslatorError_eNone)
+        , m_eError(NetworkTranslatorReply::TranslationError_eNone)
     {
 
     }
@@ -48,7 +48,7 @@ public:
     LanguageType m_eTargetLanguageType;
     QString m_sSource;
     QString m_sTarget;
-    NetworkTranslatorReply::TranslatorError m_eError;
+    NetworkTranslatorReply::TranslationError m_eError;
     QString m_sErrorString;
 };
 
@@ -122,12 +122,12 @@ QString NetworkTranslatorReply::target() const
     return d->m_sTarget;
 }
 
-void NetworkTranslatorReply::setError(TranslatorError error)
+void NetworkTranslatorReply::setError(TranslationError error)
 {
     d->m_eError = error;
 }
 
-NetworkTranslatorReply::TranslatorError NetworkTranslatorReply::error() const
+NetworkTranslatorReply::TranslationError NetworkTranslatorReply::error() const
 {
     return d->m_eError;
 }

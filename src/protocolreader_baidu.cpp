@@ -33,6 +33,8 @@ public:
             return ;
         }
 
+        clear();
+
         QJsonObject dataObj = QJsonDocument::fromJson(data).object();
         if(dataObj.contains("error_code")){//error
             m_iError =  dataObj["error_code"].toString().toInt(0,10);
@@ -56,6 +58,16 @@ public:
             m_sTarget.append(resultObj["dst"].toString() \
                     + (resultIndex == result.size() - 1 ? "" : "\n"));
         }
+    }
+
+    void clear()
+    {
+        m_iError = 0;
+        m_sErrorString.clear();
+        m_eSourceLanguage = LanguageType_eNone;
+        m_eTargetLanguage = LanguageType_eNone;
+        m_sSource.clear();
+        m_sTarget.clear();
     }
 
     int m_iError;

@@ -49,8 +49,8 @@ public:
             return false;
         }
 
-        if(m_sSource.isEmpty()){
-            m_sErrorString = QObject::tr("source unset");
+        if(m_sSource.simplified().isEmpty()){
+            m_sErrorString = QObject::tr("source unset or source is empty(only has space)");
             return false;
         }
         return true;

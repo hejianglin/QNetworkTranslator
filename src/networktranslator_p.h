@@ -27,7 +27,7 @@ public:
     void init();
     bool isValid();
 
-    TranslatorClient m_eClient;
+    TranslationClient m_eClient;
     LanguageType m_eSourceLanguage_Default;
     LanguageType m_eTargetLanguage_Default;
     QString m_sClientUrl;
