@@ -22,11 +22,11 @@ public:
     NetworkTranslator(QObject *parent = 0);
     ~NetworkTranslator();
 
-    void setTranslatorClient(TranslationClient);
-    TranslationClient translatorClient() const;
+    void setTranslatorEngine(TranslationEngine);
+    TranslationEngine translatorEngine() const;
 
-    void setTranslatorClientUrl(const QString &url);
-    QString translatorClientUrl() const;
+    void setTranslatorEngineUrl(const QString &url);
+    QString translatorEngineUrl() const;
 
     void setAppID(const QString &);
     QString appID() const;

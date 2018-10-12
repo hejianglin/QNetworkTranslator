@@ -23,11 +23,11 @@ enum LanguageType{
     LanguageType_eJp
 };
 
-enum TranslationClient{
-    TranslationClient_eNone = -1,
-    TranslationClient_eBaidu,
-    TranslationClient_eSougou,
-    TranslationClient_eTengXun
+enum TranslationEngine{
+    TranslationEngine_eNone = -1,
+    TranslationEngine_eBaidu,
+    TranslationEngine_eSougou,
+    TranslationEngine_eTengXun
 };
 NETWORKTRANSLATOR_NAMESPACE_END
 

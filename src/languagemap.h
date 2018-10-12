@@ -2,6 +2,7 @@
 #define LANGUAGEMAP_H
 
 //Qt
+#include <QtCore/QString>
 #include <QtCore/QSharedDataPointer>
 
 //QNetworkTranslator

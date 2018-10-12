@@ -22,12 +22,12 @@ public:
 
     }
 
-    LanguageMap *create(TranslationClient client)
+    LanguageMap *create(TranslationEngine engine)
     {
-        switch (client)
+        switch (engine)
         {
-        case TranslationClient_eBaidu: return new LanguageMap_Baidu;
-        case TranslationClient_eSougou: return new LanguageMap_Sougou;
+        case TranslationEngine_eBaidu: return new LanguageMap_Baidu;
+        case TranslationEngine_eSougou: return new LanguageMap_Sougou;
         default:   break;
         }
         return new LanguageMap;

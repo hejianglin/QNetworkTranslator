@@ -27,10 +27,10 @@ public:
     void init();
     bool isValid();
 
-    TranslationClient m_eClient;
+    TranslationEngine m_eEngine;
     LanguageType m_eSourceLanguage_Default;
     LanguageType m_eTargetLanguage_Default;
-    QString m_sClientUrl;
+    QString m_sEngineUrl;
     QString m_sAppID;
     QString m_sAppKey;
     QString m_sErrorString;

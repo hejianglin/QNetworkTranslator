@@ -21,11 +21,11 @@ public:
 
     }
 
-    ProtocolReader *create(TranslationClient client)
+    ProtocolReader *create(TranslationEngine engine)
     {
-        switch (client) {
-        case TranslationClient_eBaidu: return new ProtocolReader_Baidu;
-        case TranslationClient_eSougou : return new ProtocolReader_Sougou;
+        switch (engine) {
+        case TranslationEngine_eBaidu: return new ProtocolReader_Baidu;
+        case TranslationEngine_eSougou : return new ProtocolReader_Sougou;
         default:
             break;
         }

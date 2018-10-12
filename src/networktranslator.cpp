@@ -15,7 +15,7 @@
 NETWORKTRANSLATOR_NAMESPACE_BEGIN
 
 NetworkTranslatorPrivate::NetworkTranslatorPrivate(NetworkTranslator *q)
-    : m_eClient(TranslationClient_eNone)
+    : m_eEngine(TranslationEngine_eNone)
     , m_eSourceLanguage_Default(LanguageType_eAuto)
     , m_eTargetLanguage_Default(LanguageType_eNone)
     , m_cLanguageMap(Q_NULLPTR)
@@ -45,7 +45,7 @@ NetworkTranslatorPrivate::~NetworkTranslatorPrivate()
 
 void NetworkTranslatorPrivate::init()
 {
-    if(m_eClient <= TranslationClient_eNone){
+    if(m_eEngine <= TranslationEngine_eNone){
         return ;
     }
 
@@ -54,18 +54,18 @@ void NetworkTranslatorPrivate::init()
     if(m_cLanguageMap != Q_NULLPTR){
         delete m_cLanguageMap;
     }
-    m_cLanguageMap = cLanguageMapFactory.create(m_eClient);
+    m_cLanguageMap = cLanguageMapFactory.create(m_eEngine);
 
     //request head
     NetworkRequestFactory cNetworkRequestFactory;
-    m_cRequestHead = cNetworkRequestFactory.create(m_eClient);
+    m_cRequestHead = cNetworkRequestFactory.create(m_eEngine);
 
     //protocolgenertor
     ProtocolGenertorFactory cProtocolGenertorFactory;
     if(m_cProtocolGenertor != Q_NULLPTR){
         delete m_cProtocolGenertor;
     }
-    m_cProtocolGenertor = cProtocolGenertorFactory.create(m_eClient);
+    m_cProtocolGenertor = cProtocolGenertorFactory.create(m_eEngine);
     m_cProtocolGenertor->setLanguageMap(m_cLanguageMap);
 
     //protocolreader
@@ -73,14 +73,14 @@ void NetworkTranslatorPrivate::init()
     if(m_cProtocolRead != Q_NULLPTR){
         delete m_cProtocolRead;
     }
-    m_cProtocolRead = cProtocolReaderFactory.create(m_eClient);
+    m_cProtocolRead = cProtocolReaderFactory.create(m_eEngine);
     m_cProtocolRead->setLanguageMap(m_cLanguageMap);
 }
 
 bool NetworkTranslatorPrivate::isValid()
 {
-    if(m_eClient <= TranslationClient_eNone){
-        m_sErrorString = QObject::tr("unset translator client");
+    if(m_eEngine <= TranslationEngine_eNone){
+        m_sErrorString = QObject::tr("unset translator engine");
         return false;
     }
 
@@ -145,29 +145,29 @@ NetworkTranslator::~NetworkTranslator()
 
 }
 
-void NetworkTranslator::setTranslatorClient(TranslationClient client)
+void NetworkTranslator::setTranslatorEngine(TranslationEngine engine)
 {
     Q_D(NetworkTranslator);
-    d->m_eClient = client;
+    d->m_eEngine = engine;
     d->init();
 }
 
-TranslationClient NetworkTranslator::translatorClient() const
+TranslationEngine NetworkTranslator::translatorEngine() const
 {
     Q_D(const NetworkTranslator);
-    return d->m_eClient;
+    return d->m_eEngine;
 }
 
-void NetworkTranslator::setTranslatorClientUrl(const QString &url)
+void NetworkTranslator::setTranslatorEngineUrl(const QString &url)
 {
     Q_D(NetworkTranslator);
-    d->m_sClientUrl = url;
+    d->m_sEngineUrl = url;
 }
 
-QString NetworkTranslator::translatorClientUrl() const
+QString NetworkTranslator::translatorEngineUrl() const
 {
     Q_D(const NetworkTranslator);
-    return d->m_sClientUrl;
+    return d->m_sEngineUrl;
 }
 
 void NetworkTranslator::setAppID(const QString &appID)
@@ -268,8 +268,8 @@ bool NetworkTranslator::translator(NetworkTranslatorRequest &request)
         return false;
     }
 
-    if(!d->m_sClientUrl.isEmpty()){
-        d->m_cRequestHead.setUrl(QUrl(d->m_sClientUrl));
+    if(!d->m_sEngineUrl.isEmpty()){
+        d->m_cRequestHead.setUrl(QUrl(d->m_sEngineUrl));
     }
 
     d->m_cNetworkAccessManager.post(d->m_cRequestHead,d->m_cProtocolGenertor->generate());

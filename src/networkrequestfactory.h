@@ -23,18 +23,18 @@ public:
 
     }
 
-    QNetworkRequest create(TranslationClient client)
+    QNetworkRequest create(TranslationEngine engine)
     {
         QNetworkRequest head;
-        switch (client)
+        switch (engine)
         {
-        case TranslationClient_eBaidu:
+        case TranslationEngine_eBaidu:
             head.setUrl(QUrl("http://api.fanyi.baidu.com/api/trans/vip/translate"));
             head.setRawHeader("content-type","application/x-www-form-urlencoded");
             head.setRawHeader("accept","application/json");
             break;
 
-        case TranslationClient_eSougou:
+        case TranslationEngine_eSougou:
             head.setUrl(QUrl("http://fanyi.sogou.com/reventondc/api/sogouTranslate"));
             head.setRawHeader("content-type","application/x-www-form-urlencoded");
             head.setRawHeader("accept","application/json");
